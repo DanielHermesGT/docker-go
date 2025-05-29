@@ -6,4 +6,11 @@ COPY . .
 
 RUN go build -o main main.go
 
+FROM alpine:3.20
+
+WORKDIR /app
+
+# Copia apenas o binário da stage de build
+COPY --from=builder /app/main .
+
 CMD ["./main"]
