@@ -4,9 +4,11 @@ WORKDIR /app
 
 COPY . .
 
-RUN go build -o main main.go
+ENV CGO_ENABLED=0
 
-FROM alpine:3.20
+RUN go build -ldflags="-s -w" -o main main.go
+
+FROM scratch
 
 WORKDIR /app
 
